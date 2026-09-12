@@ -566,3 +566,9 @@
 0xf395d62 : ./data-common/bgm/bgm_cliff.ogg
 0x1d075db : ./data-common/bgm/bgm_autumn_02.ogg
 0xdc9e4a1c : ./data-common/bgm/bgm_endcredit.ogg
+0xe8285442 : ./data-common/fonts/reggae_24.abc
+0xeccde932 : ./data-common/textures/4bit/fonts/reggae_24.dds
+0x9fc95b16 : ./data-common/fonts/reggae_24_sdf.abc
+0x7d8c611a : ./data-common/textures/4bit/fonts/reggae_24_sdf.dds
+0x678d99b3 : ./data-common/fonts/eula_14.abc
+0x9b94ae87 : ./data-common/textures/4bit/fonts/eula_14.dds
