@@ -8,12 +8,12 @@ The game engine uses a proprietary archive format and references files using a c
 
 This script accomplishes two main tasks:
 1. **Dictionary Resolution**: It uses a pre-computed dictionary file (`asset_paths.txt`) containing original game paths recovered from the game's executable and scripts. By running the hashing algorithm in reverse against these known strings, the script successfully maps internal hashes back to their exact original folder structures and filenames.
-2. **Intelligent Fallback**: For any hashes not present in the dictionary, the script analyzes the uncompressed byte headers to intelligently guess the file type (such as `.dds`, `.wav`, `.ogg`). It also features detection for game-specific formats:
+2. **Fallback**: For any hashes not present in the dictionary, the script analyzes the uncompressed byte headers to guess the file type (such as `.dds`, `.wav`, `.ogg`). It also features detection for game-specific formats:
     - **GameMonkey Scripts (`.gm`)**: Detects both UTF-8 and UTF-16 LE scripts, and parses their file headers to self-recover their original filenames.
     - **Binary Fonts (`.fnt`)**: Detects `0x10000005` and `FONT` magic headers.
-    - **Grid Data (`.grid`)**: Detects custom 8x8 data grids.
+    - **Grid Data (`.grid`)**: Detects custom 8x8 data grids (their purpose is still a mystery).
 
-Not all hashes have been resolved yet, but the result is 100+ files organized in the original structure when the game was built. The remaining 900+ files will be placed in an _unknown folder organized by their fallback types.
+Not all hashes have been resolved yet, but the known files are organized in the same structure used when the game was originally built. The remaining files will be placed in an _unknown folder organized by their fallback types.
 
 ## Requirements
 
@@ -63,3 +63,20 @@ python extract_monsters.py "C:\Program Files (x86)\Steam\steamapps\common\Monste
 ## Files
 - `extract_monsters.py`: The main extraction tool.
 - `asset_paths.txt`: A mapping dictionary of `hash : path` used to reconstruct original folder structures.
+- `test_hashes.py`: A utility script for testing arbitrary strings against the game's hashing algorithm.
+
+## Testing Hash Paths
+
+The `test_hashes.py` script can be used to test paths with known hashes from the game's package file. It replicates the engine's internal FNV-1 string normalization and hashing logic.
+
+You can test a single suspected path directly against the game's archive index:
+```bash
+python test_hashes.py "./data-common/scripts/scene/title.gm" -p "C:\Program Files (x86)\Steam\steamapps\common\Monsters\monsters.pkiwin"
+```
+
+Or, you can provide a text file containing multiple paths (one per line) to brute-force matches all at once:
+```bash
+python test_hashes.py -f my_strings_to_test.txt -p "C:\Program Files (x86)\Steam\steamapps\common\Monsters\monsters.pkiwin"
+```
+
+The script will calculate the hash and output whether a `[MATCH FOUND IN ARCHIVE]` or `[NO MATCH]` was hit.
