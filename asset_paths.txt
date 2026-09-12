@@ -233,3 +233,12 @@
 0xccd0156 : ./scripts/revision.gm
 0xf2a867be : ./scripts/at_first_initialize.gm
 0x92fc7748 : ./scripts/modules.gm
+0x34b77524 : ./scripts/scene/redefinekeys.gm
+0x930538a8 : ./scripts/scene/configurekeyboards.gm
+0x74531a0c : ./scripts/scene/language.gm
+0xbb9802d9 : ./scripts/scene/gfxoptions.gm
+0xe4889175 : ./scripts/scene/gfxresize.gm
+0x407980f3 : ./scripts/scene/youtube.gm
+0xea765947 : ./scripts/scene/textinputwindow.gm
+0x4c4319ea : ./scripts/scene/configurejoypads.gm
+0x3905c1fd : ./scripts/scene/configurejoypad.gm
