@@ -8,10 +8,9 @@ The game engine uses a proprietary archive format and references files using a c
 
 This script accomplishes two main tasks:
 1. **Dictionary Resolution**: It uses a pre-computed dictionary file (`asset_paths.txt`) containing original game paths recovered from the game's executable and scripts. By running the hashing algorithm in reverse against these known strings, the script successfully maps internal hashes back to their exact original folder structures and filenames.
-2. **Fallback**: For any hashes not present in the dictionary, the script analyzes the uncompressed byte headers to guess the file type (such as `.dds`, `.wav`, `.ogg`). It also features detection for game-specific formats:
-    - **GameMonkey Scripts (`.gm`)**: Detects both UTF-8 and UTF-16 LE scripts, and parses their file headers to self-recover their original filenames.
+2. **Fallback**: For any hashes not present in the dictionary, the script analyzes the uncompressed byte headers to guess the file type (such as `.dds`, `.wav`, `.gm`). It also features detection for game-specific formats:
+    - **GameMonkey Scripts (`.gm`)**: Detects both text/script files, and parses their file headers to self-recover their original filenames.
     - **Binary Fonts (`.fnt`)**: Detects `0x10000005` and `FONT` magic headers.
-    - **Grid Data (`.grid`)**: Detects custom 8x8 data grids (their purpose is still a mystery).
 
 Not all hashes have been resolved yet, but the known files are organized in the same structure used when the game was originally built. The remaining files will be placed in an _unknown folder organized by their fallback types.
 

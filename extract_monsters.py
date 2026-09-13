@@ -7,7 +7,6 @@ import argparse
 
 SPECIAL_CASES = {
     0xdcdda077: "_unknown/loc.db",
-    0xfc66a1df: "_unknown/gm/credits.gm",
 }
 
 def is_text(data):
@@ -24,28 +23,10 @@ def guess_file_info(data):
     if not head:
         return "dat", ".dat"
         
-    if head.startswith(b'OggS'):
-        return "ogg", ".ogg"
     if head.startswith(b'RIFF') and len(head) >= 12 and head[8:12] == b'WAVE':
         return "wav", ".wav"
-    if head.startswith(b'\x89PNG\r\n\x1a\n'):
-        return "png", ".png"
     if head.startswith(b'DDS '):
         return "dds", ".dds"
-    if head.startswith(b'\xff\xd8\xff'):
-        return "jpg", ".jpg"
-    if head.startswith(b'BM'):
-        return "bmp", ".bmp"
-    if head.startswith(b'PK\x03\x04'):
-        return "zip", ".zip"
-    if head.startswith(b'\x1bLua'):
-        return "luac", ".luac"
-    if head.startswith(b'<?xml') or (is_text(head) and b'<?xml' in head[:100]):
-        return "xml", ".xml"
-        
-    # Check for UTF-16 LE BOM
-    if head.startswith(b'\xff\xfe'):
-        return "gm", ".gm"
         
     # Check for FONT magic
     if head.startswith(b'FONT'):
@@ -57,11 +38,6 @@ def guess_file_info(data):
         # Check for ajblib::GL::Font::Font magic (0x10000005)
         if v1 == 0x10000005:
             return "fnt", ".fnt"
-            
-        # Grid files typically have v1=0 or 1, size = w*h, offset=32
-        if (v1 == 0 or v1 == 1) and size == w * h and offset == 32 and size > 0:
-            return "grid", ".grid"
-            
     if is_text(head):
         return "gm", ".gm"
         
