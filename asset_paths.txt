@@ -1063,3 +1063,4 @@
 0xb4c31174 : ./shaders/vs_2dcol.hlsl
 0x3c70d5dc : ./shaders/vs_cleardepth.hlsl
 0x8df3852c : ./spritewindows.txt
+0xadd57701 : ./steam_appid.txt
